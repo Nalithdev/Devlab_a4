@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\AdresseFormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdresseFormationRepository::class)]
@@ -21,19 +20,16 @@ class AdresseFormation
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $adresse = null;
+    #[ORM\Column]
+    private ?float $longitude = null;
 
     #[ORM\Column]
     private ?float $latitude = null;
 
-    #[ORM\Column]
-    private ?float $longitude = null;
-
     /**
      * @var Collection<int, Formation>
      */
-    #[ORM\OneToMany(targetEntity: Formation::class, mappedBy: 'adresse_formation_id')]
+    #[ORM\OneToMany(targetEntity: Formation::class, mappedBy: 'adresse_formation')]
     private Collection $formations;
 
     public function __construct()
@@ -58,14 +54,14 @@ class AdresseFormation
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getLongitude(): ?float
     {
-        return $this->adresse;
+        return $this->longitude;
     }
 
-    public function setAdresse(string $adresse): static
+    public function setLongitude(float $longitude): static
     {
-        $this->adresse = $adresse;
+        $this->longitude = $longitude;
 
         return $this;
     }
@@ -82,18 +78,6 @@ class AdresseFormation
         return $this;
     }
 
-    public function getLongitude(): ?float
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(float $longitude): static
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Formation>
      */
@@ -106,7 +90,7 @@ class AdresseFormation
     {
         if (!$this->formations->contains($formation)) {
             $this->formations->add($formation);
-            $formation->setAdresseFormationId($this);
+            $formation->setAdresseFormation($this);
         }
 
         return $this;
@@ -116,8 +100,8 @@ class AdresseFormation
     {
         if ($this->formations->removeElement($formation)) {
             // set the owning side to null (unless already changed)
-            if ($formation->getAdresseFormationId() === $this) {
-                $formation->setAdresseFormationId(null);
+            if ($formation->getAdresseFormation() === $this) {
+                $formation->setAdresseFormation(null);
             }
         }
 

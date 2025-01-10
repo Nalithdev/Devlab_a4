@@ -19,14 +19,14 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $url = null;
 
     #[ORM\ManyToOne(inversedBy: 'formations')]
-    private ?adresseformation $adresse_formation_id = null;
+    private ?AdresseFormation $adresse_formation = null;
 
     public function getId(): ?int
     {
@@ -50,7 +50,7 @@ class Formation
         return $this->description;
     }
 
-    public function setDescription(string $description): static
+    public function setDescription(?string $description): static
     {
         $this->description = $description;
 
@@ -62,21 +62,21 @@ class Formation
         return $this->url;
     }
 
-    public function setUrl(string $url): static
+    public function setUrl(?string $url): static
     {
         $this->url = $url;
 
         return $this;
     }
 
-    public function getAdresseFormationId(): ?adresseformation
+    public function getAdresseFormation(): ?AdresseFormation
     {
-        return $this->adresse_formation_id;
+        return $this->adresse_formation;
     }
 
-    public function setAdresseFormationId(?adresseformation $adresse_formation_id): static
+    public function setAdresseFormation(?AdresseFormation $adresse_formation): static
     {
-        $this->adresse_formation_id = $adresse_formation_id;
+        $this->adresse_formation = $adresse_formation;
 
         return $this;
     }

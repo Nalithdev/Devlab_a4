@@ -1,6 +1,6 @@
 Commande d'initalisation du projet
 
-A faire dans l'ordre après avoir cloner
+A faire dans l'ordre après avoir cloné
 
 `composer install`
 

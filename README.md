@@ -1,14 +1,17 @@
-# Devlab A4 Haut de Seine
+Commande d'initalisation du projet
 
-## Initialisation du projet :
-  ```composer install```
-  Créer le fichier ```.env.local```
-  insérer le lien de votre base de données: ```# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"```
-  ```php bin/console doctrine:database:create```
-  ```php bin/console doctrine:migrations:migrate```
+A faire dans l'ordre après avoir cloner
 
-## Génération des clés de génération de token
-```php bin/console lexik:jwt:generate-keypair```
+`composer install`
 
-dans le fichier ```.env.local```
+ Créer le fichier ```.env.local```
+ 
+ insérer le lien de votre base de données: ```# DATABASE_URL="mysql://app:!ChangeMe!@127.0.0.1:3306/app?serverVersion=8.0.32&charset=utf8mb4"```
 
+`php bin/console lexik:jwt:generate-keypair`
+
+`php bin/console d:d:c`
+
+`php bin/console d:m:m`
+
+`symfony serve`
